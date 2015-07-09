@@ -2,7 +2,7 @@ from tktable import ArrayVar
 
 
 def sample_test():
-    from tkinter import Tk, Scrollbar, Button
+    from Tkinter import Tk, Scrollbar, Button
     import tktable
 
     def test_cmd(event):

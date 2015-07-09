@@ -1,5 +1,4 @@
-from tkinter import *
-import tktable
+from tkintertable import *
 
 root = Tk()
 # Step 2  Adding Menu Bar
@@ -78,30 +77,11 @@ shortcutbar.pack(expand=NO, fill=X)
 lnlabel = Label(root, width=2, bg='antique white')
 lnlabel.pack(side=LEFT, anchor='nw', fill=Y)
 
-table = tktable.Table(root,
-                      rows=50,
-                      cols=7,
-                      state='normal',
-                      width=6,
-                      height=6,
-                      titlerows=1,
-                      titlecols=1,
-                      roworigin=-1,
-                      colorigin=-1,
-                      selectmode='extended',
-                      selecttype='row',
-                      rowstretch='unset',
-                      colstretch='last',
-                      browsecmd=Y,
-                      flashmode='on',
-                      usecommand=0,
-                      command=Y)
-scroll = Scrollbar(table, orient='vertical', command=table.yview_scroll)
-table.pack(expand=YES, fill=BOTH)
-table.configure(yscrollcommand=scroll.set)
-scroll.config(command=table.yview)
-scroll.pack(side=RIGHT, fill=Y)
-
+table_area = Frame(root)
+table_area.pack(side=LEFT, anchor='nw', fill=Y)
+table_model = TableModel()
+table = TableCanvas(table_area, model=table_model)
+table.createTableFrame()
 
 # textPad = Text(root)
 # textPad.pack(expand=YES, fill=BOTH)
