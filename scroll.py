@@ -1,5 +1,5 @@
-from datetime import date
 from tkintertable import *
+from table_renderer import TableRenderer
 #https://github.com/dmnfarrell/tkintertable
 root = Tk()
 # Step 2  Adding Menu Bar
@@ -80,19 +80,9 @@ lnlabel.pack(side=LEFT, anchor='nw', fill=Y)
 
 table_area = Frame(root)
 table_area.pack(side=LEFT, anchor='nw', fill=Y)
-data = {'rec1': {'col1': 99.88, 'col2': 108.79, 'label': 'rec1'},
-        'rec2': {'col1': 99.88, 'col2': 108.79, 'label': 'rec2'},
-        'rec3': {'col1': 100, 'col2': 108.79, 'label': 'rec3'},
-        'rec4': {'col1': 9, 'col2': 108.79, 'label': 'rec4'}}
-table_model = TableModel()
-table_model.importDict(data)
-table = TableCanvas(table_area, model=table_model)
-table.createTableFrame()
-table.redrawTable()
-
-table.model.data['']['col1'] = 3
-table.redrawTable()
-
+# render table
+renderer = TableRenderer()
+renderer.render_table('Gui 3', 'new exel (1).xlsx',table_area)
 # textPad = Text(root)
 # textPad.pack(expand=YES, fill=BOTH)
 # scroll=Scrollbar(textPad)
