@@ -1,3 +1,4 @@
+from datetime import date
 from tkintertable import *
 
 root = Tk()
@@ -79,9 +80,18 @@ lnlabel.pack(side=LEFT, anchor='nw', fill=Y)
 
 table_area = Frame(root)
 table_area.pack(side=LEFT, anchor='nw', fill=Y)
+data = {'rec1': {'col1': 99.88, 'col2': 108.79, 'label': 'rec1'},
+        'rec2': {'col1': 99.88, 'col2': 108.79, 'label': 'rec2'},
+        'rec3': {'col1': 100, 'col2': 108.79, 'label': 'rec3'},
+        'rec4': {'col1': 9, 'col2': 108.79, 'label': 'rec4'}}
 table_model = TableModel()
+table_model.importDict(data)
 table = TableCanvas(table_area, model=table_model)
 table.createTableFrame()
+table.redrawTable()
+
+table.model.data['']['col1'] = 3
+table.redrawTable()
 
 # textPad = Text(root)
 # textPad.pack(expand=YES, fill=BOTH)
