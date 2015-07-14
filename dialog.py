@@ -7,22 +7,16 @@ class MyDialog:
 
         top = self.top = Toplevel(parent)
 
-        Label(top, text="Need to inter value at " + label).pack()
+        Label(top, text="Need to enter value").pack()
 
         self.e = Entry(top)
         self.e.pack(padx=5)
 
         b = Button(top, text="OK", command=self.ok)
         b.pack(pady=5)
+        parent.wait_window(self.top)
 
     def ok(self):
 
-        print "value is", self.e.get()
-
+        self.value = self.e.get()
         self.top.destroy()
-
-
-root = Tk()
-d = MyDialog(root, "dsds")
-
-root.wait_window(d.top)

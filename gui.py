@@ -1,7 +1,6 @@
 from tkintertable import *
 from table_renderer import TableRenderer
 
-
 class Gui:
     def __init__(self, gui_sheet_name, excel_file_name):
         root = Tk()
@@ -56,10 +55,13 @@ class Gui:
             '6. Cobalt Blue': '333AA',
             '7. Olive Green': '5B8340',
         }
+
+        self.colors = clrschms
+
         themechoice = StringVar()
         themechoice.set('1. Default White')
         for k in sorted(clrschms):
-            themesmenu.add_radiobutton(label=k, variable=themechoice)
+            themesmenu.add_radiobutton(label=k, variable=themechoice, command = lambda arg0=k: self.change_theme(clrschms[arg0]))
         menubar.add_cascade(label="View", menu=viewmenu)
 
         # Create About menu
@@ -88,10 +90,31 @@ class Gui:
         # scroll.config(command=textPad.yview)
         # scroll.pack(side=RIGHT,fill=Y)
 
-        root.bind('<ButtonRelease-1>', self.clicked)
+        # root.bind('<ButtonRelease-1>', self.clicked)
 
         root.geometry("500x300")
+        root.protocol("WM_DELETE_WINDOW", self.on_close)
         root.mainloop()
 
-    def clicked(self, event):
-        print('adsd')
+    # def clicked(self, event):
+    #     print('adsd')
+
+    def on_close(self):
+        sys.exit(0)
+
+    def open(self):
+        return
+
+    def save(self):
+        return
+
+    def save_as(self):
+        return
+
+    def exit(self):
+        sys.exit(0)
+        return
+
+    def change_theme(self, value):
+
+        print(value)

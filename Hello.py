@@ -47,12 +47,13 @@ hree buttons"""
         self.radio_3 = Radiobutton(self, text="Gui 3", variable=self.var, value=3)
         self.radio_3.grid(row=6, column=0, sticky= W)
 
-        # create text widget
-        self.secret_text = Text(self, width=35, height=5, wrap=WORD)
-        self.secret_text.grid(row=7, column=0, columnspan=2, sticky=W)
+        # # create text widget
+        # self.secret_text = Text(self, width=35, height=5, wrap=WORD)
+        # self.secret_text.grid(row=7, column=0, columnspan=2, sticky=W)
 
     def reveal(self):
 
+        root.withdraw()
         select_option = self.var.get()
         if (select_option == 1):
             Gui('Gui 1', 'new exel (1).xlsx')
@@ -61,10 +62,11 @@ hree buttons"""
         elif (select_option == 3):
             Gui('Gui 3', 'new exel (1).xlsx')
 
+
 # Main
 root = Tk()
 root.title("First GUI")
-root.geometry("290x290")
+root.geometry("290x200")
 
 # object because of the class
 app = Application(root)
