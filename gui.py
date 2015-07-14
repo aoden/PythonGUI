@@ -10,12 +10,12 @@ class Gui:
 
         # Create File menu
         filemenu = Menu(menubar, tearoff=0)
-        filemenu.add_command(label="New", accelerator='Ctrl+N', compound=LEFT)
-        filemenu.add_command(label="Open", accelerator='Ctrl+O', compound=LEFT)
-        filemenu.add_command(label="Save", accelerator='Ctrl+S', compound=LEFT)
-        filemenu.add_command(label="Save as", accelerator='Shift+Ctrl+S')
+        filemenu.add_command(label="New", accelerator='Ctrl+N', compound=LEFT, command = self.new())
+        filemenu.add_command(label="Open", accelerator='Ctrl+O', compound=LEFT, command = self.open())
+        filemenu.add_command(label="Save", accelerator='Ctrl+S', compound=LEFT, command = self.save())
+        filemenu.add_command(label="Save as", accelerator='Shift+Ctrl+S', coommand = self.save_as())
         filemenu.add_separator()
-        filemenu.add_command(label="Exit", accelerator='Alt+F4')
+        filemenu.add_command(label="Exit", accelerator='Alt+F4', command = self.exit())
         menubar.add_cascade(label="File", menu=filemenu)
 
         # Create Edit menu
