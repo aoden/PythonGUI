@@ -88,5 +88,10 @@ class Gui:
         # scroll.config(command=textPad.yview)
         # scroll.pack(side=RIGHT,fill=Y)
 
+        root.bind('<ButtonRelease-1>', self.clicked)
+
         root.geometry("500x300")
         root.mainloop()
+
+    def clicked(self, event):
+        print('adsd')

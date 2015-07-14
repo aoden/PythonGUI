@@ -7,6 +7,7 @@ class TableRenderer:
     def render_table(self, gui_sheet_name='Gui 3', excel_file_name='new exel (1).xlsx', table_area = None):
         global k
         data = []
+        table_area.bind('<ButtonRelease-1>', self.clicked)
         # array contains excel column header, I only add 7 values here, you can add more if you want
         col_labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
         wb = load_workbook(excel_file_name)
