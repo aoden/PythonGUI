@@ -39,15 +39,12 @@ hree buttons"""
         self.submit_bttn.grid(row=3, column=0, sticky=W)
 
         self.radio_1 = Radiobutton(self, text="Gui 1", variable=self.var, value=1)
-        self.radio_1.pack(anchor = W)
         self.radio_1.grid(row=4, column=0, sticky=W)
 
         self.radio_2 = Radiobutton(self, text="Gui 2", variable=self.var, value=2)
-        self.radio_2.pack(anchor = W)
         self.radio_2.grid(row=5, column=0, sticky=W)
 
         self.radio_3 = Radiobutton(self, text="Gui 3", variable=self.var, value=3)
-        self.radio_3.pack(anchor = W)
         self.radio_3.grid(row=6, column=0, sticky= W)
 
         # create text widget
@@ -55,14 +52,6 @@ hree buttons"""
         self.secret_text.grid(row=7, column=0, columnspan=2, sticky=W)
 
     def reveal(self):
-        """ Display message based on password """
-        ESP_contents = self.esp_ent.get()
-        USER_contents = self.produser_ent.get()
-        message = "EspProd = " + ESP_contents + \
-                  "\nUser    = " + USER_contents
-
-        self.secret_text.delete(0.0, END)
-        self.secret_text.insert(0.0, message)
 
         select_option = self.var.get()
         if (select_option == 1):

@@ -1,5 +1,6 @@
 from openpyxl import *
-from tkintertable import *
+from tkintertable.Tables import *
+from tkintertable.TableModels import *
 
 class TableRenderer:
 
@@ -16,22 +17,40 @@ class TableRenderer:
         row_num = sh.get_highest_row()
         table_model = TableModel()
         # table_model.importDict(data)
-        table = TableCanvas(table_area, model=table_model)
-        table.createTableFrame()
-        table.redrawTable()
+        self.table = TableCanvas(table_area, model=table_model, editable=TRUE)
+        self.table.createTableFrame()
+        self.table.bind('<Enter>', self.clicked)
+
         for j in range(0, col_num):
-            table.addColumn(col_labels[j])
+            self.table.addColumn(col_labels[j])
+
         for i in range(1, row_num + 1):
             print('enter row ' + str(i))
             for j in range(0, col_num):
                 cell = sh[str(col_labels[j]) + str(i)].value
-                if (cell == None):
+                if cell == None:
                     cell = ''
                 data.append(cell)
                 # print(cell)
                 print(data)
-            table.addRow()
+            self.table.addRow()
             for k in range(0, col_num):
-                table.model.data[i][col_labels[k]] = data[k]
+                self.table.model.data[i][col_labels[k]] = data[k]
             data = []
-            table.redrawTable()
+            self.table.redrawTable()
+    def clicked(self, event):
+        try:
+            rclicked = self.table.get_row_clicked(event)
+            cclicked = self.table.get_col_clicked(event)
+            clicks = (rclicked, cclicked)
+            print 'clicks:', clicks
+            self.table.redrawTable()
+        except:
+            print 'Error'
+        if clicks:
+            #Now we try to get the value of the row+col that was clicked.
+            try:
+                value = self.table.model.getValueAt(clicks[0], clicks[1])
+                print(value)
+                self.table.setValueA[0]
+            except: print 'No record at:', clicks
