@@ -1,4 +1,4 @@
-from tkintertable import *
+from tkintertable.Tables import TableCanvas
 from table_renderer import TableRenderer
 #https://github.com/dmnfarrell/tkintertable
 root = Tk()
