@@ -7,7 +7,7 @@ class MyDialog:
 
         top = self.top = Toplevel(parent)
 
-        Label(top, text="Need to enter value").pack()
+        Label(top, text= label).pack()
 
         self.e = Entry(top)
         self.e.pack(padx=5)

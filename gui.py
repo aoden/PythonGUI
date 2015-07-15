@@ -1,21 +1,24 @@
 from tkintertable import *
 from table_renderer import TableRenderer
+from dialog import MyDialog
 
 class Gui:
     def __init__(self, gui_sheet_name, excel_file_name):
         root = Tk()
+        self.root = root;
+        self.file_name = excel_file_name
         # Step 2  Adding Menu Bar
 
         menubar = Menu(root)  # frame that holds the menu buttons
 
         # Create File menu
         filemenu = Menu(menubar, tearoff=0)
-        filemenu.add_command(label="New", accelerator='Ctrl+N', compound=LEFT, command = self.new())
-        filemenu.add_command(label="Open", accelerator='Ctrl+O', compound=LEFT, command = self.open())
-        filemenu.add_command(label="Save", accelerator='Ctrl+S', compound=LEFT, command = self.save())
-        filemenu.add_command(label="Save as", accelerator='Shift+Ctrl+S', coommand = self.save_as())
+        filemenu.add_command(label="New", accelerator='Ctrl+N', compound=LEFT, command = lambda: self.new())
+        filemenu.add_command(label="Open", accelerator='Ctrl+O', compound=LEFT, command = lambda: self.open())
+        filemenu.add_command(label="Save", accelerator='Ctrl+S', compound=LEFT, command = lambda: self.save())
+        filemenu.add_command(label="Save as", accelerator='Shift+Ctrl+S', command = lambda: self.save_as())
         filemenu.add_separator()
-        filemenu.add_command(label="Exit", accelerator='Alt+F4', command = self.exit())
+        filemenu.add_command(label="Exit", accelerator='Alt+F4', command = lambda: self.exit())
         menubar.add_cascade(label="File", menu=filemenu)
 
         # Create Edit menu
@@ -83,6 +86,7 @@ class Gui:
         # render table
         renderer = TableRenderer()
         renderer.render_table(gui_sheet_name, excel_file_name, table_area)
+        self.table_renderer = renderer;
         # textPad = Text(root)
         # textPad.pack(expand=YES, fill=BOTH)
         # scroll=Scrollbar(textPad)
@@ -103,12 +107,29 @@ class Gui:
         sys.exit(0)
 
     def open(self):
+
+        try:
+            d1 = MyDialog(self.root, "enter file path:")
+            d2 = MyDialog(self.root, "enter sheet name:")
+            Gui(d2.value, d1.value)
+        except:
+            return
         return
 
     def save(self):
+        try:
+            self.table_renderer.workbook.save(self.file_name)
+        except:
+            return
         return
 
     def save_as(self):
+
+        try:
+            d1 = MyDialog(self.root, "enter file path:")
+            self.table_renderer.workbook.save(d1.value)
+        except:
+            return
         return
 
     def exit(self):

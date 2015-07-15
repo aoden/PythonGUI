@@ -61,6 +61,8 @@ hree buttons"""
             Gui('Gui 2', 'new exel (1).xlsx')
         elif (select_option == 3):
             Gui('Gui 3', 'new exel (1).xlsx')
+        else:
+            return
 
 
 # Main
