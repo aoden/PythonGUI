@@ -7,28 +7,39 @@ import re
 
 class TableRenderer:
 
-    def render_table(self, gui_sheet_name='Gui 3', excel_file_name='new exel (1).xlsx', table_area=None):
+    def render_table(self, gui_sheet_name='Gui 3', excel_file_name='new exel (1).xlsx', table_area=None, root = None, new = False):
         global k
         data = []
-
         # array contains excel column header, I only add 7 values here, you can add more if you want
         self.col_labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
         self.parent = table_area
 
-        wb = load_workbook(excel_file_name)
-        sh = wb.get_sheet_by_name(gui_sheet_name)
-        self.sheet = sh
-        self.workbook = wb
-        col_num = sh.get_highest_column()
-        row_num = sh.get_highest_row()
-        table_model = TableModel()
-        # table_model.importDict(data)
-        self.table = TableCanvas(table_area, model=table_model, editable=TRUE)
-        self.table.createTableFrame()
+        if (not new):
+            wb = load_workbook(excel_file_name)
+            sh = wb.get_sheet_by_name(gui_sheet_name)
+            self.sheet = sh
+            self.workbook = wb
+            col_num = sh.get_highest_column()
+            row_num = sh.get_highest_row()
+            table_model = TableModel()
+            # table_model.importDict(data)
+            self.table = TableCanvas(table_area, model=table_model, editable=FALSE)
+            self.table.createTableFrame()
+        else:
+            wb = Workbook()
+            sh = wb.create_sheet(0, "sheet1")
+            self.sheet = sh
+            self.workbook = wb
+            col_num = 3
+            row_num = 10
+            table_model = TableModel()
+            # table_model.importDict(data)
+            self.table = TableCanvas(table_area, model=table_model, editable=FALSE)
+            self.table.createTableFrame()
         # bind mouse click event
-        self.table.bind('<ButtonPress-1>', self.clicked)
+        root.bind('<ButtonPress-1>', self.clicked)
         # bind double click event
-        self.table.bind('<Double-Button-1>', self.dbclicked)
+        root.bind('<Double-Button-1>', self.dbclicked)
 
         for j in range(0, col_num):
             self.table.addColumn(self.col_labels[j])
@@ -70,9 +81,7 @@ class TableRenderer:
 
     def open_dialog(self, clicks):
         d = MyDialog(self.parent, "enter value")
-        self.table.model.setValueAt(d.value, clicks[0], clicks[1])
-        excel_index = self.col_labels[clicks[1]].__str__() + (clicks[0] + 1).__str__()
-        self.sheet[excel_index] = d.value
+        self.edit_cell(d.value, clicks[0], clicks[1])
         self.table.redrawTable()
 
     # change emails values
@@ -84,7 +93,7 @@ class TableRenderer:
             for j in range(0, model.getRowCount() - 1):
                 if (re.match("[^@]+@[^@]+\.[^@]+", model.getValueAt(j, i))): # find email by regular expression
                     print("found " + model.getValueAt(j, i))
-                    model.setValueAt('InsDataOps@lexisNexis.com', j, i) # change email value
+                    self.edit_cell('InsDataOps@lexisNexis.com', j, i) # change email value
                     self.table.redrawTable()
 
     # handle double click event
@@ -94,4 +103,10 @@ class TableRenderer:
         cclicked = self.table.get_col_clicked(event)
         clicks = (rclicked, cclicked)
         self.open_dialog(clicks)
+        return
+
+    def edit_cell(self, col, row, value):
+
+        self.table.model.setValueAt(value, row, col)
+        self.table.redrawTable()
         return

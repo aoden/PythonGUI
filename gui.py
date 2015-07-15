@@ -7,6 +7,9 @@ class Gui:
         root = Tk()
         self.root = root;
         self.file_name = excel_file_name
+        #declare undo/redo stacks
+        self.undo_stack = []
+        self.redo_stack = []
         # Step 2  Adding Menu Bar
 
         menubar = Menu(root)  # frame that holds the menu buttons
@@ -83,18 +86,11 @@ class Gui:
 
         table_area = Frame(root)
         table_area.pack(side=LEFT, anchor='nw', fill=Y)
+        self.table_area = table_area
         # render table
         renderer = TableRenderer()
-        renderer.render_table(gui_sheet_name, excel_file_name, table_area)
+        renderer.render_table(gui_sheet_name, excel_file_name, table_area, root)
         self.table_renderer = renderer;
-        # textPad = Text(root)
-        # textPad.pack(expand=YES, fill=BOTH)
-        # scroll=Scrollbar(textPad)
-        # textPad.configure(yscrollcommand=scroll.set)
-        # scroll.config(command=textPad.yview)
-        # scroll.pack(side=RIGHT,fill=Y)
-
-        # root.bind('<ButtonRelease-1>', self.clicked)
 
         root.geometry("500x300")
         root.protocol("WM_DELETE_WINDOW", self.on_close)
@@ -117,7 +113,12 @@ class Gui:
         return
 
     def save(self):
+
         try:
+            model = self.table_renderer.table.model
+            for i in range(0, model.getColumnCount() - 1):
+                for j in range(0, model.getRowCount() - 1):
+                    excel_index = self.table_renderer.col_labels[i].__str__() + (j + 1).__str__()
             self.table_renderer.workbook.save(self.file_name)
         except:
             return
@@ -127,6 +128,10 @@ class Gui:
 
         try:
             d1 = MyDialog(self.root, "enter file path:")
+            model = self.table_renderer.table.model
+            for i in range(0, model.getColumnCount() - 1):
+                for j in range(0, model.getRowCount() - 1):
+                    excel_index = self.table_renderer.col_labels[i].__str__() + (j + 1).__str__()
             self.table_renderer.workbook.save(d1.value)
         except:
             return
@@ -139,3 +144,8 @@ class Gui:
     def change_theme(self, value):
 
         print(value)
+
+    def new(self):
+
+        self.table_renderer.render_table('','',self.table_area, self.root, True)
+        return
