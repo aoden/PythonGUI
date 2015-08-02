@@ -24,6 +24,7 @@ class Gui:
         filemenu.add_command(label="Open", accelerator='Ctrl+O', compound=LEFT, command=lambda: self.open())
         filemenu.add_command(label="Save", accelerator='Ctrl+S', compound=LEFT, command=lambda: self.save())
         filemenu.add_command(label="Save as", accelerator='Shift+Ctrl+S', command=lambda: self.save_as())
+        filemenu.add_command(label="Save as text", accelerator='Shift+Ctrl+T', command=lambda: self.save_text())
         filemenu.add_separator()
         filemenu.add_command(label="Exit", accelerator='Alt+F4', command=lambda: self.exit())
         menubar.add_cascade(label="File", menu=filemenu)
@@ -159,4 +160,8 @@ class Gui:
     def new(self):
 
         self.table_renderer.render_table('', '', self.table_area, self.root, True)
+        return
+
+    def save_text(self):
+
         return

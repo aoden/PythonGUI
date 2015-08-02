@@ -1,5 +1,5 @@
 
-# this class holds details in able to implement undo/redo function
+# this class holds details of actions in able to implement undo/redo function
 class ActionDetails:
 
     def __init__(self, col, row, value):

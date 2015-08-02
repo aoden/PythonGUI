@@ -2,8 +2,7 @@ from Tkinter import *
 from gui import Gui
 
 class Application(Frame):
-    """A GUI Application with t        #
-hree buttons"""
+    """ Script automation login page"""
 
     def __init__(self, master):
         """ Initialize the Frame """
@@ -13,38 +12,38 @@ hree buttons"""
 
     def create_widgets(self):
         self.var  = IntVar()
-        """ Creates three buttons that do nothing"""
-        # create first button
-        self.inst_lbl = Label(self, text="Enter password for the secret of longevity")
-        self.inst_lbl.grid(row=0, column=0, columnspan=3, sticky=E)
+
+        # Homescreen label
+        self.inst_lbl = Label(self, text="HomeScreen")
+        self.inst_lbl.grid(row=0, column=0, columnspan=3)
 
         # create label for password
-        self.esp_lbl = Label(self, text="prodesp: ")
+        self.esp_lbl = Label(self, text="Username: ")
         self.esp_lbl.grid(row=1, column=0, sticky=W)
 
-        # create entry widget to accept password
-        self.esp_ent = Entry(self, show="*")
+        # create entry widget for username entry
+        self.esp_ent = Entry(self)
         self.esp_ent.grid(row=1, column=1, sticky=W)
 
         # create label for password
-        self.produser_lbl = Label(self, text="username: ")
+        self.produser_lbl = Label(self, text="Password: ")
         self.produser_lbl.grid(row=2, column=0, sticky=W)
 
-        # create entry widget to accept password
-        self.produser_ent = Entry(self)
+        # create entry widget for password entry and doesnt disclose the password entered
+        self.produser_ent = Entry(self, show="*")
         self.produser_ent.grid(row=2, column=1, sticky=W)
 
         # create submit button
         self.submit_bttn = Button(self, text="Submit", command=self.reveal)
         self.submit_bttn.grid(row=3, column=0, sticky=W)
 
-        self.radio_1 = Radiobutton(self, text="Gui 1", variable=self.var, value=1)
+        # create radio buttons for build selection
+        self.radio_1 = Radiobutton(self, text="Customer Suport Build", variable=self.var, value=1)
         self.radio_1.grid(row=4, column=0, sticky=W)
 
-        self.radio_2 = Radiobutton(self, text="Gui 2", variable=self.var, value=2)
+        self.radio_2 = Radiobutton(self, text="ECL only Build", variable=self.var, value=2)
         self.radio_2.grid(row=5, column=0, sticky=W)
-
-        self.radio_3 = Radiobutton(self, text="Gui 3", variable=self.var, value=3)
+        self.radio_3 = Radiobutton(self, text="Landing Zone Build", variable=self.var, value=3)
         self.radio_3.grid(row=6, column=0, sticky= W)
 
         # # create text widget
@@ -67,7 +66,7 @@ hree buttons"""
 
 # Main
 root = Tk()
-root.title("First GUI")
+root.title("Script Automation GUI")
 root.geometry("290x200")
 
 # object because of the class

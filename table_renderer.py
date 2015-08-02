@@ -7,7 +7,7 @@ from tkintertable.TableModels import *
 from dialog import *
 from  action_details import ActionDetails
 
-
+# This class do the table rendering, also contains excel objects, stacks for undo/redo
 class TableRenderer:
     def render_table(self, gui_sheet_name='Gui 3', excel_file_name='new exel (1).xlsx', table_area=None, root=None,
                      new=False):
@@ -123,7 +123,7 @@ class TableRenderer:
         self.execute_action(clicks)
         return
 
-    # this method chang tkintertable cell's value
+    # this method change tkintertable cell's value
     def edit_cell(self, value, row, col):
 
         print('edit cell (' + row.__str__() + ',' + col.__str__() + ')')

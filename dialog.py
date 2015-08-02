@@ -1,5 +1,5 @@
 from Tkinter import *
-
+# This class is a simple input dialog box
 class MyDialog:
 
 
